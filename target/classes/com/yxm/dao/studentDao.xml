@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxm.dao.StudentDao">
+    <!--添加学生信息-->
+    <insert id="addStudent" parameterType="com.yxm.entity.Student">
+        insert into `student`
+        values(null,#{studentNo},#{name},#{sex},#{majorId},#{tel},#{collegeId})
+    </insert>
+    <!--显示所有的数据信息-->
+    <select id="queryStudents" resultType="com.yxm.entity.StudentInfo">
+        SELECT s.id,s.studentNo,s.name,s.sex,s.tel,m.name AS major,c.name AS college,s.majorId as majorId,s.collegeId as collegeId
+        FROM `student` AS s JOIN `major` AS m ON s.majorId = m.id
+        JOIN `college` AS c ON c.id = s.collegeId
+    </select>
+    <!--删除指定的学生信息(通过id)-->
+    <delete id="delStudent">
+        delete from `student` where `id` = #{id}
+    </delete>
+    <!--更新学生信息-->
+    <update id="updateStudent" parameterType="com.yxm.entity.Student">
+        update `student` set `studentNo` = #{studentNo},`name` = #{name},`sex` = #{sex},
+        `majorId` = #{majorId},`collegeId` = #{collegeId},`tel`=#{tel}
+        where `id`=#{id}
+    </update>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxm.dao.UserDao">
+    <!--根据用户的账号和密码进行查询-->
+    <select id="queryUsers" resultType="com.yxm.entity.User">
+        select * from `user` where `userNo`=#{userNo} and `password`=#{password} and `permission`=#{permission}
+    </select>
+    <!--通过id删除用户-->
+    <delete id="delUser">
+        delete from `user` where `id`=#{id}
+    </delete>
+    <!--修改用户的密码-->
+    <update id="updateUser">
+        update `user` set `password`=#{password} where `id`=#{id}
+    </update>
+</mapper>

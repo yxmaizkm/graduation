@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--因为java类中采用驼峰命名的方式，而数据库表中的字段名是采用下滑线的，所以需要设置-->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <!--一般是在Spring中配置数据库-->
+    <typeAliases>
+        <package name="com.yxm.entity"/>
+    </typeAliases>
+    <mappers>
+        <mapper resource="com/yxm/dao/userDao.xml"/>
+        <mapper resource="com/yxm/dao/studentDao.xml"/>
+        <mapper resource="com/yxm/dao/teacherDao.xml"/>
+    </mappers>
+</configuration>

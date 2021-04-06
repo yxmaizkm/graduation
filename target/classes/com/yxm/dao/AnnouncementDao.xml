@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxm.dao.AnnouncementDao">
+    <!--添加公告-->
+    <insert id="addAnnouncement">
+        insert into `announcement`(`id`,`title`,`message`) values(null,#{title},#{message})
+    </insert>
+    <!--删除公告-->
+    <delete id="delAnnouncement">
+        delete from `announcement` where `id`=#{id}
+    </delete>
+    <!--修改公告-->
+    <update id="updateAnnouncement">
+        update `announcement` set `title`=#{title},`message`=#{message} where `id`=#{id}
+    </update>
+    <!--获取所有的公告信息-->
+    <select id="queryAnnouncements" resultType="com.yxm.entity.Announcement">
+        select * from `announcement`
+    </select>
+    <!--通过id查询指定的公告信息-->
+    <select id="queryAnnouncementById" resultType="com.yxm.entity.Announcement">
+        select * from `announcement` where `id`=#{id}
+    </select>
+</mapper>

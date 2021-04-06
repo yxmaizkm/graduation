@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxm.dao.TeacherDao">
+    <!--添加老师信息-->
+    <insert id="addTeacher" parameterType="com.yxm.entity.Teacher">
+        insert into `teacher`
+        values(null,#{teacherNo},#{name},#{sex},#{collegeId},#{tel})
+    </insert>
+    <!--显示所有的数据信息-->
+    <select id="queryTeachers" resultType="com.yxm.entity.TeacherInfo">
+        SELECT t.id,t.teacherNo,t.name,t.sex,t.tel,c.name AS college,t.collegeId as collegeId
+        FROM `teacher` AS t JOIN `college` AS c ON c.id = t.collegeId
+    </select>
+    <!--删除指定的学生信息(通过id)-->
+    <delete id="delTeacher">
+        delete from `teacher` where `id` = #{id}
+    </delete>
+</mapper>

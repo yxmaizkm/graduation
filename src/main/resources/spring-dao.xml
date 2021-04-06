@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+    <!--连接数据库-->
+    <!--引入外部配置文件-->
+    <context:property-placeholder location="classpath:db.properties"/>
+    <!--配置数据库连接池-->
+    <bean class="com.mchange.v2.c3p0.ComboPooledDataSource" id="dataSource">
+        <property name="jdbcUrl" value="${jdbc-url}"/>
+        <property name="driverClass" value="${jdbc-driverClass}"/>
+        <property name="user" value="${jdbc-username}"/>
+        <property name="password" value="${jdbc-password}"/>
+        <!--c3p0的私有属性-->
+        <!--是否自动提交事务-->
+        <property name="autoCommitOnClose" value="false"/>
+        <!--设置最大的数据库连接数-->
+        <property name="maxPoolSize" value="30"/>
+        <!--设置最小的数据库连接数-->
+        <property name="minPoolSize" value="10"/>
+        <!--设置如果数据库连接不上最长多久-->
+        <property name="checkoutTimeout" value="1000"/>
+        <!--获取失败连接的重试次数-->
+        <property name="acquireRetryAttempts" value="2"/>
+    </bean>
+    <!--获取sqlSessionFactory-->
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
+        <!--配置数据源-->
+        <property name="dataSource" ref="dataSource"/>
+        <!--关联Mybatis的配置文件-->
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+    <!--扫描dao层，生成代理-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.yxm.dao"/>
+        <!--配置sqlSessionFactory-->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+</beans>
